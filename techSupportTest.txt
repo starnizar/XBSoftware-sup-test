@@ -1,0 +1,27 @@
+1. Hello, 'User'!
+
+Thank you for using our products, and for this question!
+Certainly, You can use Gantt widget with node.js.
+Here is a link to documetation about it https://docs.dhtmlx.com/gantt/desktop__howtostart_nodejs.html,
+also we have video tutorial about how to use dhtmlx with node.js, here is the link https://www.youtube.com/watch?v=D8YzyzBfyP8
+
+So we hope that you found solutions and our answers were useful.
+Have a nice day!
+
+2. Hello, 'User'!
+
+Looks like your code is correct, so advice is to check invoked methods onBeforeTaskAdd and onAfterTaskAdd.
+Make sure that You use existing parrent's id.
+And you always can read some more about that method in docs https://docs.dhtmlx.com/gantt/api__gantt_addtask.html
+
+Hope, that was useful!
+
+3. Hello, 'User'!
+
+.showQuickInfo method is defined in the Quick Info extension, so you need to activate the quick_info (https://docs.dhtmlx.com/gantt/desktop__extensions_list.html#quickinfo) plugin.
+
+Also .load method should accept'json', 'xml' or 'oldxml' type of data.
+But if you use .php type, you should pass second parameter to method, type of string that describes a type you using. So something like that: http://snippet.dhtmlx.com/5/90d07db44
+To get more info about methods you using here is a link to docs https://docs.dhtmlx.com/gantt/
+
+Hope, that was usesful!

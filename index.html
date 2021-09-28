@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>XBSoftware test</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            display: flex;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        .playground{
+            position: relative;
+            flex: 3 1;
+            background: lightskyblue;
+        }
+        #square{
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #f2ffb4;
+            border-radius: 6px;
+            width: 150px;
+            height: 150px;
+            cursor: pointer;
+            transition: .25s;
+        }
+        .coords{
+            flex: 1 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: sans-serif;
+        }
+        .coords div{
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="playground">
+        <div id="square" draggable="true"></div>
+    </div>
+
+    <div class="coords">
+        <div>
+            <label for="X">X:</label>
+            <input id="X" type="number">
+        </div>
+        <div>
+            <label for="Y">Y:</label>
+            <input id="Y" type="number">
+        </div>
+    </div>
+
+    <script>
+        const playground = document.querySelector('.playground')
+        const square = document.getElementById('square')
+        const xInput = document.getElementById('X')
+        const yInput = document.getElementById('Y')
+
+        const coords = {x: 0, y: 0}
+        const coordsOnSquare = {x: 0, y: 0}
+
+        xInput.value = coords.x
+        yInput.value = coords.y
+
+        xInput.addEventListener('input',event => {
+            if (event.currentTarget.value < 0) {
+                event.currentTarget.value = 0
+            }
+            coords.x = event.currentTarget.value
+            square.style.left = coords.x + 'px'
+
+        })
+        yInput.addEventListener('input',event => {
+            if (event.currentTarget.value < 0) {
+                event.currentTarget.value = 0
+            }
+            coords.y = event.currentTarget.value
+            square.style.top = coords.y + 'px'
+        })
+
+
+        square.addEventListener('dragstart', event => {
+            coordsOnSquare.x = event.clientX - coords.x
+            coordsOnSquare.y = event.clientY - coords.y
+        })
+        square.addEventListener('drag', event => {
+            square.style.left = event.clientX - coordsOnSquare.x + 'px'
+            square.style.top = event.clientY - coordsOnSquare.y + 'px'
+        })
+        square.addEventListener('dragend', event => {
+
+            square.style.left =event.clientX - coordsOnSquare.x + 'px'
+            square.style.top = event.clientY - coordsOnSquare.y + 'px'
+
+            xInput.value = event.clientX - coordsOnSquare.x
+            yInput.value = event.clientY - coordsOnSquare.y
+
+            coords.x = event.clientX - coordsOnSquare.x
+            coords.y = event.clientY - coordsOnSquare.y
+
+            if (square.style.left < '0') {
+                square.style.left = '0px'
+                xInput.value = 0
+                coords.x = 0
+            }
+            if (square.style.top < '0px') {
+                square.style.top = '0px'
+                yInput.value = 0
+                coords.y = 0
+            }
+            if (event.clientX - coordsOnSquare.x + 150 > playground.offsetWidth) {
+                square.style.left = playground.offsetWidth -150 + 'px'
+                xInput.value = playground.offsetWidth -150
+                coords.x = playground.offsetWidth -150
+            }
+            if (event.clientY - coordsOnSquare.y + 150 > playground.offsetHeight) {
+                square.style.top = playground.offsetHeight -150 + 'px'
+                yInput.value = playground.offsetHeight -150
+                coords.y = playground.offsetHeight -150
+            }
+        })
+
+    </script>
+</body>
+</html>
